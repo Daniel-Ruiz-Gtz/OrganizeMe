@@ -1,4 +1,5 @@
 import tkinter as tk
+import os
 from tkinter import filedialog
 
 def select_file():
@@ -6,9 +7,33 @@ def select_file():
     path_label.config(text=path)
 
 def organize():
-    # Organize directory
+    directories = ["Multimedia", "Text", "Compress"]
     
-    pass
+    path = path_label.cget("text")
+    
+    for dire in directories:
+        dire_path = os.path.join(path, dire)
+        if not os.path.exists(dire_path):
+            os.makedirs(dire_path)
+            print(f"New dir created: {dire}")
+            
+    for file in os.listdir(path):
+        if os.path.isfile(os.path.join(path, file)):
+            _, ext = os.path.splitext(file)
+            ext = ext.lower()
+            if ext in [".jpg", ".jpeg", ".png", ".ico", ".svg", ".mp3", ".mp4", ".mov", ".webm"]:
+                dest_path = os.path.join(path, "Multimedia", file)
+                os.replace(os.path.join(path, file), dest_path)
+                print(f"File {file} Move to Multimedia")
+            elif ext in [".txt", ".doc", ".docx", ".pdf", ".xls", ".xlsm", ".xlsx", ".ods"]:
+                dest_path = os.path.join(path, "Text", file)
+                os.replace(os.path.join(path, file), dest_path)
+                print(f"File {file} Move to Text")
+            elif ext in [".zip", ".rar", ".tar.gz"]:
+                dest_path = os.path.join(path, "Compress", file)
+                os.replace(os.path.join(path, file), dest_path)
+                print(f"File {file} Move to Compress")
+    
 
 def toggle_mode():
     current_mode = mode_var.get()
@@ -42,6 +67,8 @@ def set_color_scheme():
 
 root = tk.Tk()
 root.title("OrganizeMe")
+icon = tk.PhotoImage(file="icon.png")
+root.iconphoto(True, icon)
 
 mode_var = tk.StringVar()
 mode_var.set("dark")
@@ -51,10 +78,10 @@ mode_button.pack(pady=5, side="top", anchor="ne")
 
 title = tk.Label(root, text="Welcome to OrganizeMe", font=("Helvetica", 18, "bold"))
 title.pack()
-desc = tk.Label(root, text="Select the directory to organize:", font=("Helvetica", 14))
+desc = tk.Label(root, text="Select the directory to organize:", font=("Helvetica", 15))
 desc.pack()
 
-path_label = tk.Label(root, text="", font=("Helvetica", 11, "italic"))
+path_label = tk.Label(root, text="", font=("Helvetica", 10, "italic"))
 path_label.pack()
 
 button_frame = tk.Frame(root)
