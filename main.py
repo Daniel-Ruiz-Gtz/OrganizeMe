@@ -1,7 +1,7 @@
 import tkinter as tk
+import tkinter.messagebox
 import os
 from tkinter import filedialog
-
 def select_file():
     path = filedialog.askdirectory()
     path_label.config(text=path)
@@ -15,7 +15,6 @@ def organize():
         dire_path = os.path.join(path, dire)
         if not os.path.exists(dire_path):
             os.makedirs(dire_path)
-            print(f"New dir created: {dire}")
             
     for file in os.listdir(path):
         if os.path.isfile(os.path.join(path, file)):
@@ -24,15 +23,13 @@ def organize():
             if ext in [".jpg", ".jpeg", ".png", ".ico", ".svg", ".mp3", ".mp4", ".mov", ".webm"]:
                 dest_path = os.path.join(path, "Multimedia", file)
                 os.replace(os.path.join(path, file), dest_path)
-                print(f"File {file} Move to Multimedia")
             elif ext in [".txt", ".doc", ".docx", ".pdf", ".xls", ".xlsm", ".xlsx", ".ods"]:
                 dest_path = os.path.join(path, "Text", file)
                 os.replace(os.path.join(path, file), dest_path)
-                print(f"File {file} Move to Text")
             elif ext in [".zip", ".rar", ".tar.gz"]:
                 dest_path = os.path.join(path, "Compress", file)
                 os.replace(os.path.join(path, file), dest_path)
-                print(f"File {file} Move to Compress")
+    tkinter.messagebox.showinfo("OrganizeMe",  "Complete!")
     
 
 def toggle_mode():
