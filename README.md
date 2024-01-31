@@ -30,9 +30,9 @@ OrganizeMe is a simple file organization tool built with Python's Tkinter librar
 
 ### Screenshots
 
-![OrganizeMe Light Mode](public\img01.png)
+![OrganizeMe Light Mode](https://github.com/Daniel-Ruiz-Gtz/OrganizeMe/blob/main/public/img01.png)
 
-![OrganizeMe Dark Mode](public\img02.png)
+![OrganizeMe Dark Mode](https://github.com/Daniel-Ruiz-Gtz/OrganizeMe/blob/main/public/img02.png)
 
 ### Requirements
 
