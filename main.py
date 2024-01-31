@@ -59,6 +59,7 @@ def set_color_scheme():
     desc.configure(bg=bg_color, fg=text_color)
     path_label.configure(bg=bg_color, fg=text_color)
     button_frame.configure(bg=bg_color)
+    creator_label.configure(bg=bg_color, fg=text_color)
 
     # Widgets
 
@@ -89,6 +90,14 @@ select_button.pack(side="left", padx=5)
 
 organize_button = tk.Button(button_frame, text="Organize", command=organize)
 organize_button.pack(side="left", padx=5)
+
+bottom_frame = tk.Frame(root)
+bottom_frame.pack(side="right")
+
+creator_label = tk.Label(bottom_frame, text="Created by Daniel Ruiz Gtz", font=("Helvetica", 8, "italic"))
+creator_label.bind("<Button-1>", lambda event: os.system("start https://github.com/Daniel-Ruiz-Gtz"))
+creator_label.config(cursor="hand2")
+creator_label.pack()
 
 
 set_color_scheme()
