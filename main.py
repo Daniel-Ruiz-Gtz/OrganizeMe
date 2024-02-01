@@ -7,7 +7,7 @@ def select_file():
     path_label.config(text=path)
 
 def organize():
-    directories = ["Multimedia", "Text", "Compress"]
+    directories = ["Imagenes", "Vectores", "Corel", "Illustrtator", "Otros"]
     
     path = path_label.cget("text")
     
@@ -20,14 +20,20 @@ def organize():
         if os.path.isfile(os.path.join(path, file)):
             _, ext = os.path.splitext(file)
             ext = ext.lower()
-            if ext in [".jpg", ".jpeg", ".png", ".ico", ".svg", ".mp3", ".mp4", ".mov", ".webm"]:
-                dest_path = os.path.join(path, "Multimedia", file)
+            if ext in [".jpg", ".jpeg", ".png", ".gif", ".mbp", ".tif", ".tiff"]:
+                dest_path = os.path.join(path, "Imagenes", file)
                 os.replace(os.path.join(path, file), dest_path)
-            elif ext in [".txt", ".doc", ".docx", ".pdf", ".xls", ".xlsm", ".xlsx", ".ods"]:
-                dest_path = os.path.join(path, "Text", file)
+            elif ext in ["svg", ".eps"]:
+                dest_path = os.path.join(path, "Vectores", file)
                 os.replace(os.path.join(path, file), dest_path)
-            elif ext in [".zip", ".rar", ".tar.gz"]:
-                dest_path = os.path.join(path, "Compress", file)
+            elif ext in [".cdr"]:
+                dest_path = os.path.join(path, "Corel", file)
+                os.replace(os.path.join(path, file), dest_path)
+            elif ext in [".ai"]:
+                dest_path = os.path.join(path, "Illustrtator", file)
+                os.replace(os.path.join(path, file), dest_path)
+            else:
+                dest_path = os.path.join(path, "Otros", file)
                 os.replace(os.path.join(path, file), dest_path)
     tkinter.messagebox.showinfo("OrganizeMe",  "Complete!")
     
@@ -65,8 +71,6 @@ def set_color_scheme():
 
 root = tk.Tk()
 root.title("OrganizeMe")
-icon = tk.PhotoImage(file="icon.png")
-root.iconphoto(True, icon)
 
 mode_var = tk.StringVar()
 mode_var.set("dark")
